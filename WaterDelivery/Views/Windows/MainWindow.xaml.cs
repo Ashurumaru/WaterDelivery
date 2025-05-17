@@ -11,7 +11,7 @@ namespace WaterDelivery.Views.Windows
         {
             InitializeComponent();
             SetUserInitials();
-            NavigateToPage("DashboardPage");
+            NavigateToPage("OrdersPage");
         }
 
         private void SetUserInitials()
@@ -19,14 +19,21 @@ namespace WaterDelivery.Views.Windows
             if (!string.IsNullOrEmpty(CurrentUser.FirstName) && !string.IsNullOrEmpty(CurrentUser.LastName))
             {
                 userInitials.Text = $"{CurrentUser.FirstName[0]}{CurrentUser.LastName[0]}";
+                string fullName = $"{CurrentUser.LastName} {CurrentUser.FirstName}";
+                if (!string.IsNullOrEmpty(CurrentUser.MiddleName))
+                    fullName += $" {CurrentUser.MiddleName}";
+
+                userName.Text = fullName;
             }
             else if (!string.IsNullOrEmpty(CurrentUser.UserName) && CurrentUser.UserName.Length > 0)
             {
                 userInitials.Text = CurrentUser.UserName[0].ToString().ToUpper();
+                userName.Text = CurrentUser.UserName;
             }
             else
             {
                 userInitials.Text = "?";
+                userName.Text = "Неизвестный пользователь";
             }
 
             userRole.Text = CurrentUser.IsAdmin ? "Администратор" : "Диспетчер";
