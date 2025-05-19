@@ -29,7 +29,7 @@
 
                 <Grid>
                     <Canvas>
-                        <Path Fill="#40FFFFFF" Opacity="0.1">
+                        <Path Fill="#40FFFFFF" Opacity="0.2">
                             <Path.Data>
                                 <PathGeometry>
                                     <PathGeometry.Figures>
@@ -49,7 +49,7 @@
                                 </PathGeometry>
                             </Path.Data>
                         </Path>
-                        <Path Fill="#40FFFFFF" Opacity="0.15">
+                        <Path Fill="#40FFFFFF" Opacity="0.3">
                             <Path.Data>
                                 <PathGeometry>
                                     <PathGeometry.Figures>

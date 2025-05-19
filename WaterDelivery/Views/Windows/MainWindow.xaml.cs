@@ -1,7 +1,11 @@
 ﻿using SchoolApp.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using WaterDelivery.Data;
+using WaterDelivery.Views.Pages;
 
 namespace WaterDelivery.Views.Windows
 {
@@ -10,18 +14,24 @@ namespace WaterDelivery.Views.Windows
         public MainWindow()
         {
             InitializeComponent();
-            SetUserInitials();
-            NavigateToPage("OrdersPage");
+            SetUserInfo();
+
+            // Переход на панель управления при запуске
+            NavigateToPage("DashboardPage");
+            HighlightActiveButton(btnDashboard);
         }
 
-        private void SetUserInitials()
+        /// <summary>
+        /// Заполняет информацию о текущем пользователе
+        /// </summary>
+        private void SetUserInfo()
         {
             if (!string.IsNullOrEmpty(CurrentUser.FirstName) && !string.IsNullOrEmpty(CurrentUser.LastName))
             {
                 userInitials.Text = $"{CurrentUser.FirstName[0]}{CurrentUser.LastName[0]}";
-                string fullName = $"{CurrentUser.LastName} {CurrentUser.FirstName}";
+                string fullName = $"{CurrentUser.LastName} {CurrentUser.FirstName[0]}";
                 if (!string.IsNullOrEmpty(CurrentUser.MiddleName))
-                    fullName += $" {CurrentUser.MiddleName}";
+                    fullName += $" {CurrentUser.MiddleName[0]}";
 
                 userName.Text = fullName;
             }
@@ -36,73 +46,88 @@ namespace WaterDelivery.Views.Windows
                 userName.Text = "Неизвестный пользователь";
             }
 
-            userRole.Text = CurrentUser.IsAdmin ? "Администратор" : "Диспетчер";
+            // Установка роли пользователя
+            userRole.Text = GetUserRoleName(CurrentUser.UserRoleId);
         }
 
+        /// <summary>
+        /// Возвращает название роли пользователя
+        /// </summary>
+        private string GetUserRoleName(int userRoleId)
+        {
+            switch (userRoleId)
+            {
+                case 1:
+                    return "Администратор";
+                case 2:
+                    return "Диспетчер";
+                case 3:
+                    return "Кладовщик";
+                case 4:
+                    return "Водитель";
+                case 5:
+                    return "Бухгалтер";
+                case 6:
+                    return "Клиент";
+                default:
+                    return "Пользователь";
+            }
+        }
+
+        /// <summary>
+        /// Обработчик нажатия на кнопки навигации
+        /// </summary>
         private void NavigateButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
+                // Сбрасываем стили всех кнопок меню
                 ResetMenuButtonsStyle();
 
-                button.Style = (Style)FindResource("ActiveTabMenuButtonStyle");
+                // Устанавливаем активный стиль для нажатой кнопки
+                HighlightActiveButton(button);
 
                 string pageName = button.Tag as string;
 
-                UpdatePageTitle(pageName);
-
+                // Переходим на выбранную страницу
                 NavigateToPage(pageName);
             }
         }
 
+        /// <summary>
+        /// Устанавливает активный стиль для кнопки
+        /// </summary>
+        private void HighlightActiveButton(Button button)
+        {
+            button.Style = (Style)FindResource("ActiveTabMenuButtonStyle");
+            button.Background = (SolidColorBrush)FindResource("PrimaryLightColor");
+            button.Foreground = Brushes.White;
+        }
+
+        /// <summary>
+        /// Сбрасывает стили всех кнопок меню
+        /// </summary>
         private void ResetMenuButtonsStyle()
         {
-            btnOrders.Style = (Style)FindResource("TabMenuButtonStyle");
-            btnClients.Style = (Style)FindResource("TabMenuButtonStyle");
-            btnVehicles.Style = (Style)FindResource("TabMenuButtonStyle");
-            btnWaterSources.Style = (Style)FindResource("TabMenuButtonStyle");
-            btnProducts.Style = (Style)FindResource("TabMenuButtonStyle");
-            btnHandbook.Style = (Style)FindResource("TabMenuButtonStyle");
-            btnReports.Style = (Style)FindResource("TabMenuButtonStyle");
-
-            foreach (var button in new[] { btnOrders, btnClients, btnVehicles, btnWaterSources, btnProducts, btnHandbook, btnReports })
+            // Сбрасываем стили основных кнопок
+            var mainButtons = new[]
             {
-                button.Background = System.Windows.Media.Brushes.Transparent;
-                button.Foreground = System.Windows.Media.Brushes.White;
+                btnDashboard, btnOrders, btnClients, btnVehicles,
+                btnWarehouse, btnProducts, btnEmployees,
+                btnHandbook, btnReports
+            };
+
+            foreach (var btn in mainButtons)
+            {
+                btn.Style = (Style)FindResource("TabMenuButtonStyle");
+                btn.Background = Brushes.Transparent;
+                btn.Foreground = Brushes.White;
             }
         }
 
-        private void UpdatePageTitle(string pageName)
-        {
-            switch (pageName)
-            {
-                case "OrdersPage":
-                    pageTitle.Text = "Заказы";
-                    break;
-                case "ClientsPage":
-                    pageTitle.Text = "Клиенты";
-                    break;
-                case "VehiclesPage":
-                    pageTitle.Text = "Транспорт";
-                    break;
-                case "WaterSourcesPage":
-                    pageTitle.Text = "Источники воды";
-                    break;
-                case "ProductsPage":
-                    pageTitle.Text = "Продукты";
-                    break;
-                case "ReportsPage":
-                    pageTitle.Text = "Отчеты";
-                    break;
-                case "HandbookPage":
-                    pageTitle.Text = "Справочники";
-                    break;
-                default:
-                    pageTitle.Text = "АкваВита";
-                    break;
-            }
-        }
-
+        /// <summary>
+        /// Создает и переходит на выбранную страницу
+        /// </summary>
         private void NavigateToPage(string pageName)
         {
             Page page = null;
@@ -110,40 +135,52 @@ namespace WaterDelivery.Views.Windows
             switch (pageName)
             {
                 case "DashboardPage":
-                    //page = new DashboardPage();
+                    page = new DashboardPage();
                     break;
                 case "OrdersPage":
-                    //page = new OrdersPage();
+                    // page = new OrdersPage();
                     break;
                 case "ClientsPage":
-                    //page = new ClientsPage();
+                    page = new ClientsPage();
                     break;
                 case "VehiclesPage":
-                    //page = new VehiclesPage();
+                    page = new VehiclesPage();
                     break;
-                case "WaterSourcesPage":
-                    //page = new WaterSourcesPage();
+                case "WarehousePage":
+                    // page = new WarehousePage();
                     break;
                 case "ProductsPage":
-                    //page = new ProductsPage();
+                    page = new ProductsPage();
                     break;
-                case "ReportsPage":
-                    //page = new ReportsPage();
+                case "EmployeesPage":
+                    page = new EmployeesPage();
                     break;
                 case "HandbookPage":
-                    //page = new HandbookPage();
+                    // page = new HandbookPage();
+                    break;
+                case "ReportsPage":
+                    // page = new ReportsPage();
                     break;
                 default:
-                    //page = new DashboardPage();
+                    page = new DashboardPage();
                     break;
             }
 
             if (page != null)
             {
                 MainFrame.Navigate(page);
+
+                // Обновляем заголовок страницы из её свойства Title
+                if (page.Title != null)
+                {
+                    pageTitle.Text = page.Title;
+                }
             }
         }
 
+        /// <summary>
+        /// Обработчик кнопки выхода из системы
+        /// </summary>
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти из системы?",
@@ -160,6 +197,9 @@ namespace WaterDelivery.Views.Windows
             }
         }
 
+        /// <summary>
+        /// Очищает данные текущего пользователя
+        /// </summary>
         private void ClearCurrentUserData()
         {
             CurrentUser.UserId = 0;
@@ -175,21 +215,33 @@ namespace WaterDelivery.Views.Windows
             CurrentUser.PositionId = null;
         }
 
+        /// <summary>
+        /// Обработчик кнопки сворачивания окна
+        /// </summary>
         private void BtnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
+        /// <summary>
+        /// Обработчик кнопки разворачивания/восстановления окна
+        /// </summary>
         private void BtnMaximize_Click(object sender, RoutedEventArgs e)
         {
             SwitchWindowState();
         }
 
+        /// <summary>
+        /// Обработчик кнопки закрытия окна
+        /// </summary>
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Обработчик двойного клика или перетаскивания по заголовку окна
+        /// </summary>
         private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount >= 2)
@@ -209,6 +261,9 @@ namespace WaterDelivery.Views.Windows
             }
         }
 
+        /// <summary>
+        /// Переключает состояние окна между развернутым и нормальным
+        /// </summary>
         private void SwitchWindowState()
         {
             if (WindowState == WindowState.Normal)

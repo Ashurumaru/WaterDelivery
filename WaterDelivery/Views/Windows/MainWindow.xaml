@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WaterDelivery.Views.Windows"
         mc:Ignorable="d"
-        Title="АкваВита - Система управления" 
-        Height="768" Width="1280"
+        Title="ИП Ярина А.М-Г. - Система управления" 
+        Height="830" Width="1380"
         WindowStyle="None"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
@@ -15,10 +15,11 @@
     <Border CornerRadius="15" Background="{StaticResource BackgroundPrimaryColor}" Effect="{StaticResource CardShadowEffect}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="280"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Левая панель с меню -->
             <Border Grid.Column="0" CornerRadius="15,0,0,15" Background="{StaticResource PrimaryDarkColor}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -27,11 +28,12 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
+                    <!-- Логотип и название компании -->
                     <StackPanel Grid.Row="0" Margin="0,30,0,30">
                         <Grid>
-                            <Ellipse Width="60" Height="60" Fill="{StaticResource PrimaryLightColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Ellipse Width="70" Height="70" Fill="{StaticResource PrimaryLightColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                            <Path Width="40" Height="50" Stretch="Uniform" Fill="White" 
+                            <Path Width="45" Height="55" Stretch="Uniform" Fill="White" 
                                   HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Path.Data>
                                     <PathGeometry>
@@ -54,118 +56,163 @@
                             </Path>
                         </Grid>
 
-                        <TextBlock Text="АкваВита" FontSize="20" FontWeight="SemiBold" Foreground="White" 
+                        <TextBlock Text="ИП Ярина А.М-Г." FontSize="18" FontWeight="SemiBold" Foreground="White" 
                                    HorizontalAlignment="Center" Margin="0,10,0,3"/>
-                        <TextBlock Text="УПРАВЛЕНИЕ ДОСТАВКОЙ" FontSize="11" Foreground="White" Opacity="0.7"
+                        <TextBlock Text="УПРАВЛЕНИЕ ДОСТАВКОЙ ВОДЫ" FontSize="11" Foreground="White" Opacity="0.7"
                                    HorizontalAlignment="Center"/>
                     </StackPanel>
 
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="0,20,0,0">
+                    <!-- Основное меню -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="0,10,0,0">
                         <StackPanel>
-                            
-
-                            <Button x:Name="btnOrders" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
-                                    Height="50" Click="NavigateButton_Click" Margin="10,5,10,5" Tag="OrdersPage">
-                                <Grid Width="190">
+                            <!-- Кнопка Панель управления -->
+                            <Button x:Name="btnDashboard" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="DashboardPage">
+                                <Grid Width="200">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" Source="/Resources/Images/orders_icon.png" Width="20" Height="20"/>
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M3,13H11V3H3V13M3,21H11V15H3V21M13,21H21V11H13V21M13,3V9H21V3H13Z"/>
+
+                                    <TextBlock Grid.Column="1" Text="Панель управления" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Button>
+
+                            <!-- Кнопка Заказы -->
+                            <Button x:Name="btnOrders" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="OrdersPage">
+                                <Grid Width="200">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7M7,9V11H9V9H7M7,13V15H9V13H7M7,17V19H9V17H7Z"/>
 
                                     <TextBlock Grid.Column="1" Text="Заказы" VerticalAlignment="Center"/>
                                 </Grid>
                             </Button>
 
+                            <!-- Кнопка Клиенты -->
                             <Button x:Name="btnClients" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
-                                    Height="50" Click="NavigateButton_Click" Margin="10,5,10,5" Tag="ClientsPage">
-                                <Grid Width="190">
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="ClientsPage">
+                                <Grid Width="200">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" Source="/Resources/Images/clients_icon.png" Width="20" Height="20"/>
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z"/>
 
                                     <TextBlock Grid.Column="1" Text="Клиенты" VerticalAlignment="Center"/>
                                 </Grid>
                             </Button>
 
+                            <!-- Кнопка Транспорт -->
                             <Button x:Name="btnVehicles" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
-                                    Height="50" Click="NavigateButton_Click" Margin="10,5,10,5" Tag="VehiclesPage">
-                                <Grid Width="190">
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="VehiclesPage">
+                                <Grid Width="200">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" Source="/Resources/Images/vehicles_icon.png" Width="20" Height="20"/>
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8H17V4H3C1.89,4 1,4.89 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z"/>
 
                                     <TextBlock Grid.Column="1" Text="Транспорт" VerticalAlignment="Center"/>
                                 </Grid>
                             </Button>
 
-                            <Button x:Name="btnWaterSources" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
-                                    Height="50" Click="NavigateButton_Click" Margin="10,5,10,5" Tag="WaterSourcesPage">
-                                <Grid Width="190">
+                            <!-- Кнопка Склад -->
+                            <Button x:Name="btnWarehouse" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="WarehousePage">
+                                <Grid Width="200">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" Source="/Resources/Images/water_source_icon.png" Width="20" Height="20"/>
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M4 4H20V8H4V4M4 10H20V20H4V10M9 16H10V18H9V16M12 16H13V18H12V16M15 16H16V18H15V16Z"/>
 
-                                    <TextBlock Grid.Column="1" Text="Источники воды" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="Склад" VerticalAlignment="Center"/>
                                 </Grid>
                             </Button>
 
+                            <!-- Кнопка Продукты -->
                             <Button x:Name="btnProducts" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
-                                    Height="50" Click="NavigateButton_Click" Margin="10,5,10,5" Tag="ProductsPage">
-                                <Grid Width="190">
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="ProductsPage">
+                                <Grid Width="200">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" Source="/Resources/Images/products_icon.png" Width="20" Height="20"/>
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M6,9H8V11H10V13H8V15H6V13H4V11H6V9M18.5,9A1.5,1.5 0 0,1 20,10.5A1.5,1.5 0 0,1 18.5,12A1.5,1.5 0 0,1 17,10.5A1.5,1.5 0 0,1 18.5,9M15.5,12A1.5,1.5 0 0,1 17,13.5A1.5,1.5 0 0,1 15.5,15A1.5,1.5 0 0,1 14,13.5A1.5,1.5 0 0,1 15.5,12M17,5A7,7 0 0,1 24,12A7,7 0 0,1 17,19C15.04,19 13.27,18.2 12,16.9C10.73,18.2 8.96,19 7,19A7,7 0 0,1 0,12A7,7 0 0,1 7,5H17M7,7A5,5 0 0,0 2,12A5,5 0 0,0 7,17C8.64,17 10.09,16.21 11,15H13C13.91,16.21 15.36,17 17,17A5,5 0 0,0 22,12A5,5 0 0,0 17,7H7Z"/>
 
                                     <TextBlock Grid.Column="1" Text="Продукты" VerticalAlignment="Center"/>
                                 </Grid>
                             </Button>
 
-                            <Button x:Name="btnHandbook" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
-                                Height="50" Click="NavigateButton_Click" Margin="10,5,10,5" Tag="HandbookPage">
-                                <Grid Width="190">
+                            <!-- Кнопка Сотрудники -->
+                            <Button x:Name="btnEmployees" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="EmployeesPage">
+                                <Grid Width="200">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" Source="/Resources/Images/Handbook_icon.png" Width="20" Height="20"/>
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z"/>
+
+                                    <TextBlock Grid.Column="1" Text="Сотрудники" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Button>
+
+                            <!-- Кнопка Справочники -->
+                            <Button x:Name="btnHandbook" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="HandbookPage">
+                                <Grid Width="200">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6M6,4H13V9H18V20H6V4M8,12V14H16V12H8M8,16V18H13V16H8Z"/>
 
                                     <TextBlock Grid.Column="1" Text="Справочники" VerticalAlignment="Center"/>
                                 </Grid>
                             </Button>
 
+                            <!-- Кнопка Отчеты -->
                             <Button x:Name="btnReports" Style="{StaticResource TabMenuButtonStyle}" Background="Transparent" Foreground="White"
-                                    Height="50" Click="NavigateButton_Click" Margin="10,5,10,5" Tag="ReportsPage">
-                                <Grid Width="190">
+                                    Height="50" Click="NavigateButton_Click" Margin="15,5,15,5" Tag="ReportsPage">
+                                <Grid Width="200">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" Source="/Resources/Images/reports_icon.png" Width="20" Height="20"/>
+                                    <Path Grid.Column="0" Width="20" Height="20" Fill="White" Stretch="Uniform" 
+                                         Data="M3,22V8H7V22H3M10,22V2H14V22H10M17,22V14H21V22H17Z"/>
 
                                     <TextBlock Grid.Column="1" Text="Отчеты" VerticalAlignment="Center"/>
                                 </Grid>
                             </Button>
 
-                           
                         </StackPanel>
                     </ScrollViewer>
 
+                    <!-- Профиль пользователя -->
                     <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#30FFFFFF" Padding="15" Margin="20,10,20,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -174,21 +221,21 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0" Width="40" Height="40" CornerRadius="20" Background="{StaticResource PrimaryLightColor}">
+                            <Border Grid.Column="0" Width="45" Height="45" CornerRadius="22.5" Background="{StaticResource PrimaryLightColor}">
                                 <TextBlock x:Name="userInitials" Text="{Binding FirstName, StringFormat={}{0:0}, Converter={StaticResource InitialsConverter}}" 
-                                           FontSize="16" Foreground="White" 
+                                           FontSize="18" Foreground="White" 
                                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
 
-                            <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="userName" Text="{Binding FullName}" FontSize="14" Foreground="White"/>
+                            <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                <TextBlock x:Name="userName" Text="{Binding FullName}" FontSize="12" Foreground="White"/>
                                 <TextBlock x:Name="userRole" Text="{Binding IsAdmin, Converter={StaticResource RoleNameConverter}}" 
-                                           FontSize="11" Foreground="White" Opacity="0.7"/>
+                                           FontSize="12" Foreground="White" Opacity="0.7"/>
                             </StackPanel>
 
-                            <Button Grid.Column="2" Width="30" Height="30" Background="Transparent" BorderThickness="0"
+                            <Button Grid.Column="2" Width="35" Height="35" Background="Transparent" BorderThickness="0"
                                     Padding="0" ToolTip="Выйти" Click="LogoutButton_Click">
-                                <Path Width="18" Height="18" Stretch="Uniform" Fill="White" Opacity="0.8">
+                                <Path Width="20" Height="20" Stretch="Uniform" Fill="White" Opacity="0.8">
                                     <Path.Data>
                                         <PathGeometry>M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z</PathGeometry>
                                     </Path.Data>
@@ -199,11 +246,13 @@
                 </Grid>
             </Border>
 
+            <!-- Основной контент -->
             <Grid Grid.Column="1">
-                <DockPanel Height="35" VerticalAlignment="Top" HorizontalAlignment="Stretch" 
+                <!-- Заголовок и кнопки управления окном -->
+                <DockPanel Height="40" VerticalAlignment="Top" HorizontalAlignment="Stretch" 
                            Background="Transparent" MouseDown="DockPanel_MouseDown">
-                    <TextBlock Text="АкваВита - Система управления доставкой воды" Foreground="{StaticResource TextPrimaryColor}"
-                               VerticalAlignment="Center" Margin="20,0,0,0" FontSize="13" FontWeight="Medium"/>
+                    <TextBlock Text="ИП Ярина А.М-Г. - Система управления доставкой воды" Foreground="{StaticResource TextPrimaryColor}"
+                               VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" FontWeight="Medium"/>
 
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,5,15,0">
                         <Button x:Name="btnMinimize" Style="{StaticResource MinimizeButtonStyle}" Click="BtnMinimize_Click"/>
@@ -212,20 +261,21 @@
                     </StackPanel>
                 </DockPanel>
 
-                <Border Height="50" VerticalAlignment="Top" Margin="30,35,30,0" 
+                <!-- Заголовок страницы - обновляется из Page -->
+                <Border Height="60" VerticalAlignment="Top" Margin="20,40,20,0" 
                         BorderThickness="0,0,0,1" BorderBrush="{StaticResource BorderColor}">
-                    <Grid>
-                        <TextBlock x:Name="pageTitle" Text="Панель управления" 
-                                   Style="{StaticResource PageTitleStyle}" 
-                                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0"/>
-                    </Grid>
+                    <TextBlock x:Name="pageTitle" Text="Панель управления" 
+                              Style="{StaticResource PageTitleStyle}" 
+                              VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0"/>
                 </Border>
 
-                <Border Margin="30,85,30,15" CornerRadius="10" Background="{StaticResource BackgroundSecondaryColor}" 
+                <!-- Основная область контента - увеличенная область -->
+                <Border Margin="20,85,20,10" CornerRadius="10" Background="{StaticResource BackgroundSecondaryColor}" 
                        Effect="{StaticResource CardShadowEffect}">
                     <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Padding="20" BorderThickness="0"/>
                 </Border>
 
+                <!-- Декоративный элемент -->
                 <Canvas>
                     <Path Canvas.Right="0" Canvas.Bottom="0" Fill="{StaticResource PrimaryLightColor}" Opacity="0.03">
                         <Path.Data>

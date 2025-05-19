@@ -1,0 +1,287 @@
+﻿<Window x:Class="WaterDelivery.Views.Windows.ClientDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WaterDelivery.Views.Windows"
+        mc:Ignorable="d"
+        Title="Редактирование клиента" 
+        Height="700" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Border CornerRadius="15" Background="{StaticResource BackgroundPrimaryColor}" 
+            Effect="{StaticResource CardShadowEffect}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок окна -->
+            <Border Grid.Row="0" Background="{StaticResource PrimaryColor}" 
+                    CornerRadius="15,15,0,0" MouseDown="Border_MouseDown">
+                <Grid Margin="20,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" x:Name="txtTitle" 
+                              Text="Новый клиент" 
+                              FontSize="18" FontWeight="SemiBold" 
+                              Foreground="White"/>
+
+                    <Button Grid.Column="1" x:Name="btnClose" 
+                            Style="{StaticResource CloseButtonStyle}"
+                            Click="BtnClose_Click"/>
+                </Grid>
+            </Border>
+
+            <!-- Основное содержимое -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20,15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Раздел основной информации -->
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="Основная информация" 
+                                  Style="{StaticResource SectionHeaderStyle}" 
+                                  Margin="0,0,0,15"/>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Тип клиента -->
+                            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                <TextBlock Text="Тип клиента *" Style="{StaticResource LabelTextStyle}"/>
+                                <ComboBox x:Name="cmbClientType" Style="{StaticResource DefaultComboBoxStyle}" 
+                                          SelectionChanged="CmbClientType_SelectionChanged">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding TypeName}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <!-- Зона доставки -->
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Зона доставки *" Style="{StaticResource LabelTextStyle}"/>
+                                <ComboBox x:Name="cmbDeliveryArea" Style="{StaticResource DefaultComboBoxStyle}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding AreaName}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Информация о компании (для юр. лиц) -->
+                        <StackPanel x:Name="panelCompany" Visibility="Collapsed" Margin="0,10,0,0">
+                            <TextBlock Text="Информация о компании" 
+                                      Style="{StaticResource SectionHeaderStyle}" 
+                                      Margin="0,0,0,15"/>
+
+                            <!-- Название компании -->
+                            <StackPanel Margin="0,0,0,10">
+                                <TextBlock Text="Название компании *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="txtCompanyName" Style="{StaticResource DefaultTextBoxStyle}"/>
+                            </StackPanel>
+
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- ИНН -->
+                                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                    <TextBlock Text="ИНН *" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtINN" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+
+                                <!-- КПП (только для организаций) -->
+                                <StackPanel Grid.Column="1" x:Name="panelKPP" Visibility="Collapsed">
+                                    <TextBlock Text="КПП" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtKPP" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- ОГРН -->
+                                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                    <TextBlock Text="ОГРН / ОГРНИП" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtOGRN" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+
+                                <!-- Банковская информация -->
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="Название банка" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtBankName" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- БИК -->
+                                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                    <TextBlock Text="БИК" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtBankBIC" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+
+                                <!-- Расчетный счет -->
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="Расчетный счет" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtBankAccount" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Корр. счет -->
+                            <StackPanel Margin="0,0,0,15">
+                                <TextBlock Text="Корреспондентский счет" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="txtCorrespondentAccount" Style="{StaticResource DefaultTextBoxStyle}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Личные данные -->
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock Text="Личные данные" 
+                                      Style="{StaticResource SectionHeaderStyle}" 
+                                      Margin="0,0,0,15"/>
+
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Фамилия -->
+                                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                    <TextBlock Text="Фамилия *" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtLastName" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+
+                                <!-- Имя -->
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="Имя *" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtFirstName" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Отчество -->
+                                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                    <TextBlock Text="Отчество" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtMiddleName" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+
+                                <!-- Телефон -->
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="Телефон *" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtPhone" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Email -->
+                                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                    <TextBlock Text="Email *" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtEmail" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+
+                                <!-- Бонусные баллы -->
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="Бонусные баллы" Style="{StaticResource LabelTextStyle}"/>
+                                    <TextBox x:Name="txtLoyaltyPoints" Style="{StaticResource DefaultTextBoxStyle}"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- Юридический адрес -->
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock Text="Адрес" 
+                                      Style="{StaticResource SectionHeaderStyle}" 
+                                      Margin="0,0,0,15"/>
+
+                            <StackPanel Margin="0,0,0,10">
+                                <TextBlock Text="Юридический адрес *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="txtLegalAddress" Style="{StaticResource DefaultTextBoxStyle}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Примечания -->
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock Text="Дополнительная информация" 
+                                      Style="{StaticResource SectionHeaderStyle}" 
+                                      Margin="0,0,0,15"/>
+
+                            <StackPanel Margin="0,0,0,10">
+                                <TextBlock Text="Примечания" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="txtNotes" Style="{StaticResource DefaultTextBoxStyle}" 
+                                        Height="100" TextWrapping="Wrap" 
+                                        VerticalContentAlignment="Top" Padding="12,8"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Сообщение об ошибке -->
+                    <TextBlock Grid.Row="3" x:Name="txtError" 
+                              Style="{StaticResource ErrorTextStyle}" 
+                              Visibility="Collapsed"/>
+                </Grid>
+            </ScrollViewer>
+
+            <!-- Кнопки -->
+            <Grid Grid.Row="2" Margin="20,0,20,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" x:Name="btnCancel" Content="Отмена" 
+                        Style="{StaticResource SecondaryButtonStyle}" 
+                        Width="150" Height="45" Margin="0,0,10,0"
+                        Click="BtnCancel_Click"/>
+
+                <Button Grid.Column="2" x:Name="btnSave" Content="Сохранить" 
+                        Style="{StaticResource PrimaryButtonStyle}" 
+                        Width="150" Height="45"
+                        Click="BtnSave_Click"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

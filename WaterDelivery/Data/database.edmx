@@ -19,7 +19,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="LegalAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="INN" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="INN" Type="nvarchar" MaxLength="12" />
           <Property Name="KPP" Type="nvarchar" MaxLength="9" />
           <Property Name="OGRN" Type="nvarchar" MaxLength="15" />
           <Property Name="BankName" Type="nvarchar" MaxLength="100" />
@@ -1255,7 +1255,7 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LegalAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="INN" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="KPP" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="OGRN" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -2169,7 +2169,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

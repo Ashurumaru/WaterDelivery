@@ -1,0 +1,249 @@
+﻿<Page x:Class="WaterDelivery.Views.Pages.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WaterDelivery.Views.Pages"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="Панель управления">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="0,0,0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Верхний ряд карточек с показателями -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Активные заказы -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,10,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Активные заказы" 
+                                  FontSize="14" Foreground="{StaticResource TextTertiaryColor}" 
+                                  Margin="0,0,0,10"/>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Path Width="24" Height="24" Margin="0,0,10,0" Stretch="Uniform" 
+                                Fill="{StaticResource PrimaryColor}" Data="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7M7,9V11H9V9H7M7,13V15H9V13H7M7,17V19H9V17H7Z"/>
+                            <TextBlock x:Name="txtActiveOrders" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimaryColor}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Клиенты -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="0,0,10,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Всего клиентов" 
+                                  FontSize="14" Foreground="{StaticResource TextTertiaryColor}" 
+                                  Margin="0,0,0,10"/>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Path Width="24" Height="24" Margin="0,0,10,0" Stretch="Uniform" 
+                                Fill="{StaticResource AccentColor}" Data="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z"/>
+                            <TextBlock x:Name="txtTotalClients" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimaryColor}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Транспорт -->
+                <Border Grid.Column="2" Style="{StaticResource CardStyle}" Margin="0,0,10,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Транспорт в работе" 
+                                  FontSize="14" Foreground="{StaticResource TextTertiaryColor}" 
+                                  Margin="0,0,0,10"/>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Path Width="24" Height="24" Margin="0,0,10,0" Stretch="Uniform" 
+                                Fill="{StaticResource InfoColor}" Data="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8H17V4H3C1.89,4 1,4.89 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z"/>
+                            <TextBlock x:Name="txtActiveVehicles" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimaryColor}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+
+
+                <!-- Доход за месяц -->
+                <Border Grid.Column="3" Style="{StaticResource CardStyle}" Margin="0,0,0,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Доход за месяц" 
+                                  FontSize="14" Foreground="{StaticResource TextTertiaryColor}" 
+                                  Margin="0,0,0,10"/>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Path Width="24" Height="24" Margin="0,0,10,0" Stretch="Uniform" 
+                                Fill="{StaticResource ErrorColor}" Data="M5,6H7V18H5V6M12,6A2,2 0 0,1 14,8A2,2 0 0,1 12,10A2,2 0 0,1 10,8A2,2 0 0,1 12,6M11,12H13V18H11V12M16,6H18V18H16V6Z"/>
+                            <TextBlock x:Name="txtMonthlyIncome" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimaryColor}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Средний ряд графиков -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- График заказов -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,10,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Статистика заказов за неделю" 
+                                  FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryColor}" 
+                                  Margin="0,0,0,15"/>
+
+                        <lvc:CartesianChart Grid.Row="1" Series="{Binding OrdersSeriesCollection}" LegendLocation="Right" Height="300">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="День недели" Labels="{Binding OrdersLabels}" FontSize="12">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1" />
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Количество заказов" LabelFormatter="{Binding OrdersYFormatter}" FontSize="12" />
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+
+                <!-- График клиентов по типам -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="0,0,0,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Клиенты по типам" 
+                                  FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryColor}" 
+                                  Margin="0,0,0,15"/>
+
+                        <lvc:PieChart Grid.Row="1" Series="{Binding ClientTypeSeriesCollection}" 
+                                    LegendLocation="Bottom" InnerRadius="0" Height="300">
+                            <lvc:PieChart.ChartLegend>
+                                <lvc:DefaultLegend BulletSize="15" />
+                            </lvc:PieChart.ChartLegend>
+                        </lvc:PieChart>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Нижний ряд -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- График доставки воды по типам -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Доставка воды по типам (литры)" 
+                                  FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryColor}" 
+                                  Margin="0,0,0,15"/>
+
+                        <lvc:CartesianChart Grid.Row="1" Series="{Binding WaterDeliverySeriesCollection}" LegendLocation="Right" Height="300">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Период" Labels="{Binding WaterDeliveryLabels}" FontSize="12">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1" />
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Объем (л)" LabelFormatter="{Binding WaterDeliveryFormatter}" FontSize="12" />
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+                </Border>
+
+                <!-- Последние заказы -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="0,0,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Последние заказы" 
+                                  FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryColor}" 
+                                  Margin="0,0,0,15"/>
+
+                        <ListView x:Name="lvRecentOrders" Grid.Row="1" BorderThickness="0" Background="Transparent">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="0" Background="{Binding StatusColor}" 
+                                              Width="5" Height="40" CornerRadius="2.5" Margin="0,0,10,0"/>
+
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding Client}" FontWeight="SemiBold" 
+                                                     Foreground="{StaticResource TextPrimaryColor}"/>
+                                            <TextBlock Text="{Binding FormattedDate}" FontSize="12" 
+                                                     Foreground="{StaticResource TextTertiaryColor}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Right">
+                                            <TextBlock Text="{Binding Status}" FontSize="12" FontWeight="SemiBold"
+                                                     Foreground="{Binding StatusColor}"/>
+                                            <TextBlock Text="{Binding OrderId, StringFormat=№ {0}}" FontSize="12" 
+                                                     Foreground="{StaticResource TextTertiaryColor}" HorizontalAlignment="Right"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>
